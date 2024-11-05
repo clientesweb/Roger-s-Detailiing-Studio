@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rogers Detailing Studio - Premium Auto Detailing Services</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Experience premium auto detailing services in San José, California. Specializing in Paint Correction, Ceramic Coating, Window Tinting, and PPF installation.">
+  <meta name="keywords" content="auto detailing, ceramic coating, paint correction, window tinting, PPF, car wraps, San José">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rogersdetailing.com/">
+  <meta property="og:title" content="Rogers Detailing Studio - Premium Auto Detailing Services">
+  <meta property="og:description" content="Premium auto detailing services in San José, California. Specializing in Paint Correction, Ceramic Coating, Window Tinting, and PPF installation.">
+  <meta property="og:image" content="https://rogersdetailing.com/img/logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://rogersdetailing.com/">
+  <meta property="twitter:title" content="Rogers Detailing Studio - Premium Auto Detailing Services">
+  <meta property="twitter:description" content="Premium auto detailing services in San José, California. Specializing in Paint Correction, Ceramic Coating, Window Tinting, and PPF installation.">
+  <meta property="twitter:image" content="https://rogersdetailing.com/img/logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="img/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/logo.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#000000">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
+  <script>
+      tailwind.config = {
+          theme: {
+              extend: {
+                  colors: {
+                      'primary': '#000000',  // Black from logo
+                      'secondary': '#00B7FF', // Light blue from logo
+                      'accent': '#FFD1DC',    // Light pink from logo
+                      'tertiary': '#FFFFFF',  // White from logo
+                      'gray-gradient-start': '#000000',
+                      'gray-gradient-end': '#00B7FF',
+                  }
+              }
+          }
+      }
+  </script>
+  <style>
+      @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+      }
+      .animate-pulse {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      .fade-in {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      }
+      .fade-in.appear {
+          opacity: 1;
+          transform: translateY(0);
+      }
+      [x-cloak] { display: none !important; }
+      body {
+          background: linear-gradient(to bottom, #000000, #00B7FF);
+      }
+  </style>
+</head>
+<body class="bg-primary text-white font-sans" x-data="{ mobileMenu: false, currentSlide: 0, loading: false, currentBanner: 0, activeFilter: 'all', modalOpen: false, modalContent: null }" x-init="$nextTick(() => { console.log('Body initialized') })">
+  <!-- Preloader -->
+  <div x-show="loading" class="fixed inset-0 z-50 flex items-center justify-center bg-primary">
+      <div class="text-center">
+          <img src="img/logo.png" alt="Rogers Detailing Studio Logo" class="w-32 h-32 mx-auto mb-4 animate-pulse">
+          <div class="w-16 h-16 border-t-4 border-secondary border-solid rounded-full animate-spin mx-auto"></div>
+      </div>
+  </div>
+
+  <!-- Top Banner -->
+  <div class="bg-gradient-to-r from-gray-gradient-start to-gray-gradient-end text-white py-2 px-4 relative overflow-hidden">
+      <div class="flex transition-transform duration-500 ease-in-out max-w-4xl mx-auto" x-data="{ currentBanner: 0 }" x-init="setInterval(() => currentBanner = (currentBanner + 1) % 3, 5000)" :style="{ transform: `translateX(-${currentBanner * 100}%)` }">
+          <p class="text-sm w-full flex-shrink-0">
+              🎉 Premium auto detailing services! <a href="#contact" class="underline">Book now</a>
+          </p>
+          <p class="text-sm w-full flex-shrink-0">
+              🚗 Call (408) 813-7183 for appointments
+          </p>
+          <p class="text-sm w-full flex-shrink-0">
+              💼 Serving San José with excellence!
+          </p>
+      </div>
+      <div class="absolute right-4 top-1/2 transform -translate-y-1/2 space-x-2 z-10">
+          <a href="#" class="text-white hover:text-secondary"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-white hover:text-secondary"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-white hover:text-secondary"><i class="fab fa-twitter"></i></a>
+      </div>
+  </div>
+
+  <!-- Header with Responsive Navigation -->
+  <header class="bg-primary bg-opacity-90 backdrop-blur-md fixed w-full z-40">
+      <nav class="container mx-auto px-4 py-3" x-data="{ open: false }">
+          <div class="flex justify-between items-center">
+              <a href="#" class="flex items-center">
+                  <img src="img/logo.png" alt="Rogers Detailing Studio Logo" class="h-12 w-auto">
+                  <span class="ml-2 text-xl font-bold">Rogers Detailing Studio</span>
+              </a>
+              <button @click="open = !open" class="md:hidden text-white focus:outline-none">
+                  <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                  </svg>
+              </button>
+              <div class="hidden md:flex space-x-4">
+                  <a href="#about" class="hover:text-secondary transition">About Us</a>
+                  <a href="#services" class="hover:text-secondary transition">Services</a>
+                  <a href="#gallery" class="hover:text-secondary transition">Gallery</a>
+                  <a href="#merchandise" class="hover:text-secondary transition">Merchandise</a>
+                  <a href="#testimonials" class="hover:text-secondary transition">Testimonials</a>
+                  <a href="#faq" class="hover:text-secondary transition">FAQ</a>
+                  <a href="#contact" class="hover:text-secondary transition">Contact</a>
+              </div>
+          </div>
+          <div x-show="open" class="md:hidden mt-3 space-y-2">
+              <a href="#about" class="block hover:text-secondary transition">About Us</a>
+              <a href="#services" class="block hover:text-secondary transition">Services</a>
+              <a href="#gallery" class="block hover:text-secondary transition">Gallery</a>
+              <a href="#merchandise" class="block hover:text-secondary transition">Merchandise</a>
+              <a href="#testimonials" class="block hover:text-secondary transition">Testimonials</a>
+              <a href="#faq" class="block hover:text-secondary transition">FAQ</a>
+              <a href="#contact" class="block hover:text-secondary transition">Contact</a>
+          </div>
+      </nav>
+  </header>
+
+  <main>
+      <!-- Hero Section -->
+      <section id="hero" class="h-screen flex items-center justify-center relative overflow-hidden" x-data="{ currentSlide: 0 }" x-init="setInterval(() => currentSlide = (currentSlide + 1) % 3, 5000)">
+          <div class="absolute inset-0 z-0">
+              <div x-show="currentSlide === 0" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 transform translate-x-full" x-transition:enter-end="opacity-100 transform translate-x-0" x-transition:leave="transition ease-in duration-1000" x-transition:leave-start="opacity-100 transform translate-x-0" x-transition:leave-end="opacity-0 transform -translate-x-full" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1494905998402-395d579af36f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');"></div>
+              <div x-show="currentSlide === 1" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 transform translate-x-full" x-transition:enter-end="opacity-100 transform translate-x-0" x-transition:leave="transition ease-in duration-1000" x-transition:leave-start="opacity-100 transform translate-x-0" x-transition:leave-end="opacity-0 transform -translate-x-full" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');"></div>
+              <div x-show="currentSlide === 2" x-transition:enter="transition ease-out duration-1000" x-transition:enter-start="opacity-0 transform translate-x-full" x-transition:enter-end="opacity-100 transform translate-x-0" x-transition:leave="transition ease-in duration-1000" x-transition:leave-start="opacity-100 transform translate-x-0" x-transition:leave-end="opacity-0 transform -translate-x-full" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');"></div>
+          </div>
+          <div class="text-center z-10 bg-primary bg-opacity-50 p-8 rounded-lg max-w-3xl mx-auto">
+              <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4">Premium Auto Detailing Services</h2>
+              <p class="text-lg md:text-xl mb-8">Serving San José with professional auto detailing, ceramic coating, and paint protection services!</p>
+              <div class="space-x-4">
+                  <a href="#services" class="bg-secondary text-primary px-6 py-2 md:px-8 md:py-3 rounded-full hover:bg-opacity-80 transition text-sm md:text-base">Our Services</a>
+                  <a href="#contact" class="bg-transparent border-2 border-secondary text-secondary px-6 py-2 md:px-8 md:py-3 rounded-full hover:bg-secondary hover:text-primary transition text-sm md:text-base">Contact Us</a>
+              </div>
+          </div>
+      </section>
+
+      <!-- Services Section with Modal -->
+      <section id="services" class="py-16 md:py-20 bg-primary">
+          <div class="container mx-auto px-4">
+              <h2 class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center fade-in">Our Services</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in cursor-pointer" @click="modalOpen = true; modalContent = { title: 'Paint Correction', image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'Our paint correction service removes swirls, scratches, and oxidation, restoring your vehicle\'s paint to a mirror-like finish. We use state-of-the-art tools and techniques to achieve the best results.' }">
+                      <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Paint Correction" class="w-full h-48 object-cover rounded-lg mb-4">
+                      <i class="fas fa-paint-roller text-3xl md:text-4xl text-secondary mb-4"></i>
+                      <h3 class="text-lg md:text-xl font-semibold mb-4">Paint Correction</h3>
+                      <p class="mb-4 text-sm  md:text-base">Professional paint correction to restore your vehicle's finish.</p>
+                  </div>
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in cursor-pointer" @click="modalOpen = true; modalContent = { title: 'Ceramic Coating', image: 'https://images.unsplash.com/photo-1619642751457-6be61f68f8f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'Our ceramic coating service provides long-lasting protection for your vehicle\'s paint. It enhances gloss, repels water and contaminants, and makes maintenance easier.' }">
+                      <img src="https://images.unsplash.com/photo-1619642751457-6be61f68f8f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Ceramic Coating" class="w-full h-48 object-cover rounded-lg mb-4">
+                      <i class="fas fa-spray-can text-3xl md:text-4xl text-secondary mb-4"></i>
+                      <h3 class="text-lg md:text-xl font-semibold mb-4">Ceramic Coating</h3>
+                      <p class="mb-4 text-sm md:text-base">Long-lasting protection with premium ceramic coating.</p>
+                  </div>
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in cursor-pointer" @click="modalOpen = true; modalContent = { title: 'General Detailing', image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'Our general detailing service includes a thorough cleaning of your vehicle\'s interior and exterior. We pay attention to every detail to make your car look and feel like new.' }">
+                      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="General Detailing" class="w-full h-48 object-cover rounded-lg mb-4">
+                      <i class="fas fa-car-alt text-3xl md:text-4xl text-secondary mb-4"></i>
+                      <h3 class="text-lg md:text-xl font-semibold mb-4">General Detailing</h3>
+                      <p class="mb-4 text-sm md:text-base">Comprehensive interior and exterior detailing services.</p>
+                  </div>
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in cursor-pointer" @click="modalOpen = true; modalContent = { title: 'Window Tinting', image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'Our window tinting service reduces heat and glare, protects your interior, and enhances privacy. We use high-quality films for a perfect finish.' }">
+                      <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Window Tinting" class="w-full h-48 object-cover rounded-lg mb-4">
+                      <i class="fas fa-window-maximize text-3xl md:text-4xl text-secondary mb-4"></i>
+                      <h3 class="text-lg md:text-xl font-semibold mb-4">Window Tinting</h3>
+                      <p class="mb-4 text-sm md:text-base">Professional window tinting for style and protection.</p>
+                  </div>
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in cursor-pointer" @click="modalOpen = true; modalContent = { title: 'Paint Protection Film', image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'Our Paint Protection Film (PPF) service provides the ultimate protection for your vehicle\'s paint. It guards against rock chips, scratches, and environmental damage.' }">
+                      <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Paint Protection Film" class="w-full h-48 object-cover rounded-lg mb-4">
+                      <i class="fas fa-shield-alt text-3xl md:text-4xl text-secondary mb-4"></i>
+                      <h3 class="text-lg md:text-xl font-semibold mb-4">Paint Protection Film</h3>
+                      <p class="mb-4 text-sm md:text-base">Premium PPF installation for ultimate paint protection.</p>
+                  </div>
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in cursor-pointer" @click="modalOpen = true; modalContent = { title: 'Vehicle Wraps', image: 'https://images.unsplash.com/photo-1621799754526-a0d52c49fad5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'Our vehicle wrap service allows you to completely transform the look of your car. We offer a wide range of colors and finishes for a unique, customized appearance.' }">
+                      <img src="https://images.unsplash.com/photo-1621799754526-a0d52c49fad5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Vehicle Wraps" class="w-full h-48 object-cover rounded-lg mb-4">
+                      <i class="fas fa-fill-drip text-3xl md:text-4xl text-secondary mb-4"></i>
+                      <h3 class="text-lg md:text-xl font-semibold mb-4">Vehicle Wraps</h3>
+                      <p class="mb-4 text-sm md:text-base">Custom vinyl wrap installations and color changes.</p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Gallery Section with Filters -->
+      <section id="gallery" class="py-16 md:py-20 bg-gradient-to-b from-gray-gradient-start to-gray-gradient-end">
+          <div class="container mx-auto px-4">
+              <h2 class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center fade-in">Our Work</h2>
+              <div class="flex flex-wrap justify-center space-x-2 md:space-x-4 mb-6 md:mb-8 fade-in">
+                  <button @click="activeFilter = 'all'" 
+                          :class="{ 'bg-secondary text-primary': activeFilter === 'all' }"
+                          class="px-3 py-1 md:px-4 md:py-2 rounded-full bg-tertiary bg-opacity-10 hover:bg-secondary hover:text-primary transition mb-2 text-sm md:text-base">All</button>
+                  <button @click="activeFilter = 'paint-correction'"
+                          :class="{ 'bg-secondary text-primary': activeFilter === 'paint-correction' }"
+                          class="px-3 py-1 md:px-4 md:py-2 rounded-full bg-tertiary bg-opacity-10 hover:bg-secondary hover:text-primary transition mb-2 text-sm md:text-base">Paint Correction</button>
+                  <button @click="activeFilter = 'ceramic-coating'"
+                          :class="{ 'bg-secondary text-primary': activeFilter === 'ceramic-coating' }"
+                          class="px-3 py-1 md:px-4 md:py-2 rounded-full bg-tertiary bg-opacity-10 hover:bg-secondary hover:text-primary transition mb-2 text-sm md:text-base">Ceramic Coating</button>
+                  <button @click="activeFilter = 'ppf'"
+                          :class="{ 'bg-secondary text-primary': activeFilter === 'ppf' }"
+                          class="px-3 py-1 md:px-4 md:py-2 rounded-full bg-tertiary bg-opacity-10 hover:bg-secondary hover:text-primary transition mb-2 text-sm md:text-base">PPF</button>
+                  <button @click="activeFilter = 'wraps'"
+                          :class="{ 'bg-secondary text-primary': activeFilter === 'wraps' }"
+                          class="px-3 py-1 md:px-4 md:py-2 rounded-full bg-tertiary bg-opacity-10 hover:bg-secondary hover:text-primary transition mb-2 text-sm md:text-base">Wraps</button>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div x-show="activeFilter === 'all' || activeFilter === 'paint-correction'"
+                       class="bg-tertiary bg-opacity-10 h-48 md:h-64 rounded-lg overflow-hidden cursor-pointer fade-in"
+                       @click="modalOpen = true; modalContent = { title: 'Paint Correction', image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'This vehicle received our premium paint correction service, restoring its glossy finish.' }">
+                      <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Paint Correction Example" class="w-full h-full object-cover">
+                  </div>
+                  <div x-show="activeFilter === 'all' || activeFilter === 'ceramic-coating'"
+                       class="bg-tertiary bg-opacity-10 h-48 md:h-64 rounded-lg overflow-hidden cursor-pointer fade-in"
+                       @click="modalOpen = true; modalContent = { title: 'Ceramic Coating', image: 'https://images.unsplash.com/photo-1619642751457-6be61f68f8f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'This car was treated with our top-tier ceramic coating for long-lasting protection.' }">
+                      <img src="https://images.unsplash.com/photo-1619642751457-6be61f68f8f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Ceramic Coating Example" class="w-full h-full object-cover">
+                  </div>
+                  <div x-show="activeFilter === 'all' || activeFilter === 'ppf'"
+                       class="bg-tertiary bg-opacity-10 h-48 md:h-64 rounded-lg overflow-hidden cursor-pointer fade-in"
+                       @click="modalOpen = true; modalContent = { title: 'Paint Protection Film', image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'This vehicle received a full front-end PPF installation for maximum protection.' }">
+                      <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="PPF Example" class="w-full h-full object-cover">
+                  </div>
+                  <div x-show="activeFilter === 'all' || activeFilter === 'wraps'"
+                       class="bg-tertiary bg-opacity-10 h-48 md:h-64 rounded-lg overflow-hidden cursor-pointer fade-in"
+                       @click="modalOpen = true; modalContent = { title: 'Vehicle Wrap', image: 'https://images.unsplash.com/photo-1621799754526-a0d52c49fad5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80', description: 'This car underwent a full color change wrap, transforming its appearance.' }">
+                      <img src="https://images.unsplash.com/photo-1621799754526-a0d52c49fad5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Vehicle Wrap Example" class="w-full h-full object-cover">
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Modal for Services and Gallery -->
+      <div x-show="modalOpen" 
+           x-cloak
+           @keydown.escape.window="modalOpen = false"
+           class="fixed inset-0 z-50 overflow-y-auto" 
+           aria-labelledby="modal-title" 
+           role="dialog" 
+           aria-modal="true">
+          <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div x-show="modalOpen" 
+                   x-transition:enter="ease-out duration-300" 
+                   x-transition:enter-start="opacity-0" 
+                   x-transition:enter-end="opacity-100" 
+                   x-transition:leave="ease-in duration-200"
+                   x-transition:leave-start="opacity-100" 
+                   x-transition:leave-end="opacity-0" 
+                   class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" 
+                   aria-hidden="true"></div>
+              <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+              <div x-show="modalOpen" 
+                   x-transition:enter="ease-out duration-300"
+                   x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                   x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                   x-transition:leave="ease-in duration-200"
+                   x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                   x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                   class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                  <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                      <div class="sm:flex sm:items-start">
+                          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                              <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title" x-text="modalContent.title">
+                              </h3>
+                              <div class="mt-2">
+                                  <img :src="modalContent.image" :alt="modalContent.title" class="w-full h-auto rounded-lg mb-4">
+                                  <p class="text-sm text-gray-500" x-text="modalContent.description"></p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                      <button type="button" 
+                              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                              @click="modalOpen = false">
+                          Close
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Merchandise Section -->
+      <section id="merchandise" class="py-16 md:py-20 bg-primary">
+          <div class="container mx-auto px-4">
+              <h2 class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center fade-in">Official Merchandise</h2>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in">
+                      <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="T-Shirt" class="w-full h-64 object-cover rounded-lg mb-4">
+                      <h3 class="text-lg font-semibold mb-2">RDS T-Shirt</h3>
+                      <p class="text-secondary font-bold mb-4">$24.99</p>
+                      <div id="paypal-button-tshirt"></div>
+                  </div>
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in">
+                      <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Cap" class="w-full h-64 object-cover rounded-lg mb-4">
+                      <h3 class="text-lg font-semibold mb-2">RDS Cap</h3>
+                      <p class="text-secondary font-bold mb-4">$19.99</p>
+                      <div id="paypal-button-cap"></div>
+                  </div>
+                  <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg shadow-lg hover:shadow-xl transition text-center fade-in">
+                      <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Hoodie" class="w-full h-64 object-cover rounded-lg mb-4">
+                      <h3 class="text-lg font-semibold mb-2">RDS Hoodie</h3>
+                      <p class="text-secondary font-bold mb-4">$39.99</p>
+                      <div id="paypal-button-hoodie"></div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Contact Section with Map -->
+      <section id="contact" class="py-16 md:py-20 bg-gradient-to-b from-gray-gradient-start to-gray-gradient-end">
+          <div class="container mx-auto px-4">
+              <h2 class="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center fade-in">Contact Us</h2>
+              <div class="flex flex-wrap -mx-4">
+                  <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0 fade-in">
+                      <form id="contactForm" class="bg-tertiary bg-opacity-10 p-6 rounded-lg" @submit.prevent="sendToWhatsApp">
+                          <div class="mb-4">
+                              <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                              <input type="text" id="name" name="name" required class="w-full px-3 py-2 bg-primary border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary">
+                          </div>
+                          <div class="mb-4">
+                              <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                              <input type="email" id="email" name="email" required class="w-full px-3 py-2 bg-primary border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary">
+                          </div>
+                          <div class="mb-4">
+                              <label class="block text-sm font-medium mb-2">Services Interested In</label>
+                              <div class="space-y-2">
+                                  <label class="flex items-center">
+                                      <input type="checkbox" name="services" value="Paint Correction" class="mr-2">
+                                      Paint Correction
+                                  </label>
+                                  <label class="flex items-center">
+                                      <input type="checkbox" name="services" value="Ceramic Coating" class="mr-2">
+                                      Ceramic Coating
+                                  </label>
+                                  <label class="flex items-center">
+                                      <input type="checkbox" name="services" value="Window Tinting" class="mr-2">
+                                      Window Tinting
+                                  </label>
+                                  <label class="flex items-center">
+                                      <input type="checkbox" name="services" value="PPF" class="mr-2">
+                                      Paint Protection Film
+                                  </label>
+                              </div>
+                          </div>
+                          <div class="mb-4">
+                              <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                              <textarea id="message" name="message" rows="4" required class="w-full px-3 py-2 bg-primary border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"></textarea>
+                          </div>
+                          <button type="submit" class="w-full bg-secondary text-primary font-semibold py-2 px-4 rounded-md hover:bg-opacity-80 transition">Send Message</button>
+                      </form>
+                  </div>
+                  <div class="w-full md:w-1/2 px-4 fade-in">
+                      <div class="bg-tertiary bg-opacity-10 p-6 rounded-lg h-full">
+                          <div class="mb-6">
+                              <h3 class="text-xl font-semibold mb-4">Get in Touch</h3>
+                              <div class="space-y-2">
+                                  <p><i class="fas fa-map-marker-alt mr-2"></i>San José, California</p>
+                                  <p><i class="fas fa-phone mr-2"></i>(408) 813-7183</p>
+                                  <p><i class="fas fa-envelope mr-2"></i>rogersdetailingstudio@gmail.com</p>
+                              </div>
+                          </div>
+                          <!-- Embedded Google Map -->
+                          <div class="w-full h-64 rounded-lg overflow-hidden">
+                              <iframe
+                                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d101801.48771077043!2d-121.93804344179685!3d37.33874869999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fcae48af93ff5%3A0xb99d8c0aca9f717b!2sSan%20Jose%2C%20CA!5e0!3m2!1sen!2sus!4v1699209600000!5m2!1sen!2sus"
+                                  width="100%"
+                                  height="100%"
+                                  style="border:0;"
+                                  allowfullscreen=""
+                                  loading="lazy"
+                                  referrerpolicy="no-referrer-when-downgrade">
+                              </iframe>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-primary py-8">
+      <div class="container mx-auto px-4">
+          <div class="flex flex-wrap justify-between items-center">
+              <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                  <img src="img/logo.png" alt="Rogers Detailing Studio Logo" class="h-12 w-auto mb-2">
+                  <p class="text-sm">Premium Auto Detailing Services</p>
+              </div>
+              <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                  <h3 class="text-lg font-semibold mb-2">Quick Links</h3>
+                  <ul class="space-y-2">
+                      <li><a href="#about" class="hover:text-secondary transition">About Us</a></li>
+                      <li><a href="#services" class="hover:text-secondary transition">Services</a></li>
+                      <li><a href="#gallery" class="hover:text-secondary transition">Gallery</a></li>
+                      <li><a href="#merchandise" class="hover:text-secondary transition">Merchandise</a></li>
+                      <li><a href="#contact" class="hover:text-secondary transition">Contact</a></li>
+                  </ul>
+              </div>
+              <div class="w-full md:w-1/3">
+                  <h3 class="text-lg font-semibold mb-2">Contact Info</h3>
+                  <p class="mb-2">San José, California</p>
+                  <p class="mb-2">(408) 813-7183</p>
+                  <p><a href="mailto:rogersdetailingstudio@gmail.com">rogersdetailingstudio@gmail.com</a></p>
+              </div>
+          </div>
+          <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+              <p class="text-sm">&copy; 2024 Rogers Detailing Studio. All rights reserved.</p>
+              <p class="text-sm mt-2">Powered by Duality Domain</p>
+          </div>
+      </div>
+  </footer>
+
+  <a href="https://wa.me/14088137183" class="fixed bottom-4 right-4 bg-green-500 text-white rounded-full p-3 shadow-lg hover:bg-green-600 transition-colors z-50" aria-label="Contact us on WhatsApp">
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+  </a>
+
+  <script>
+      // Fade-in animation
+      function fadeInElements() {
+          const elements = document.querySelectorAll('.fade-in');
+          elements.forEach((element) => {
+              const elementTop = element.getBoundingClientRect().top;
+              const windowHeight = window.innerHeight;
+              if (elementTop < windowHeight - 100) {
+                  element.classList.add('appear');
+              }
+          });
+      }
+
+      window.addEventListener('scroll', fadeInElements);
+      window.addEventListener('load', fadeInElements);
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#
