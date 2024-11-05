@@ -435,19 +435,96 @@
 
   <script>
       // Fade-in animation
-      function fadeInElements() {
-          const elements = document.querySelectorAll('.fade-in');
-          elements.forEach((element) => {
-              const elementTop = element.getBoundingClientRect().top;
-              const windowHeight = window.innerHeight;
-              if (elementTop < windowHeight - 100) {
-                  element.classList.add('appear');
-              }
-          });
-      }
+        function fadeInElements() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((element) => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('appear');
+                }
+            });
+        }
 
-      window.addEventListener('scroll', fadeInElements);
-      window.addEventListener('load', fadeInElements);
+        window.addEventListener('scroll', fadeInElements);
+        window.addEventListener('load', fadeInElements);
 
-      // Smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <script>
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+            const form = document.getElementById('contactForm');
+            const name  = form.name.value;
+            const email = form.email.value;
+            const message = form.message.value;
+            const services = Array.from(form.querySelectorAll('input[name="services"]:checked')).map(el => el.value).join(', ');
+
+            const whatsappMessage = `Name: ${name}%0AEmail: ${email}%0AServices: ${services}%0AMessage: ${message}`;
+            const whatsappURL = `https://wa.me/17045022272?text=${whatsappMessage}`;
+
+            window.open(whatsappURL, '_blank');
+        }
+
+        // PayPal integration
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '24.99'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-tshirt');
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '19.99'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-cap');
+
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '39.99'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-hoodie');
+    </script>
+</body>
+</html>
